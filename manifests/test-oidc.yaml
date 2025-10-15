@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  creationTimestamp: null
+  name: ${SA_NAME}
+  namespace: ${SA_NAMESPACE}
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::${AWS_ACCOUNT_ID}:role/${ROLE_NAME}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: aws-cli
+  namespace: ${SA_NAMESPACE}
+spec:
+  serviceAccountName: ${SA_NAME}
+  containers:
+    - name: aws
+      image: amazon/aws-cli:2.15.0
+      command: ["sleep"]
+      args: ["infinity"]
+  restartPolicy: Never

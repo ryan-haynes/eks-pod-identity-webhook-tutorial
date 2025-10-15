@@ -1,0 +1,12 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: oidc
+kubeadmConfigPatches:
+- |
+  apiVersion: kubeadm.k8s.io/v1beta3
+  kind: ClusterConfiguration
+  apiServer:
+    extraArgs:
+      service-account-issuer: "https://${OIDC_ISSUER}"
+nodes:
+  - role: control-plane
